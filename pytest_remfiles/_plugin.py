@@ -1,4 +1,3 @@
-import atexit
 import os
 from pathlib import Path
 
@@ -6,6 +5,7 @@ import pytest
 
 _temp_dir = None
 _resources = {}
+_remfile_dirs = []
 
 
 def pytest_collection_finish(session):
@@ -35,6 +35,15 @@ def pytest_sessionfinish(*_):
         shutil.rmtree(_temp_dir)
 
 
+def pytest_runtest_teardown(item, nextitem):
+    global _remfile_dirs
+
+    for r in _remfile_dirs:
+        r.cleanup()
+
+    return nextitem
+
+
 def pytest_configure(config):
     config.addinivalue_line("markers", "remfiles(urls): mark test to use a remote file")
 
@@ -56,23 +65,27 @@ def remfiles(request, tmpdir):
     _fetch_files(uris)
     _copy_files([_resources[uri] for uri in uris], tmpdir)
 
-    return RemFilesDir(tmpdir)
+    o = RemFilesDir(tmpdir)
+    global _remfile_dirs
+    _remfile_dirs.append(o)
+    return o
 
 
 class RemFilesDir:
     def __init__(self, newpath: Path):
         self._newpath = newpath
         self._oldpath = Path(os.getcwd())
-        atexit.register(self._cleanup)
 
     def chdir(self):
         self._newpath.chdir()
 
-    def _cleanup(self):
+    def cleanup(self):
         import shutil
 
         if self._newpath.exists():
             shutil.rmtree(self._newpath)
+
+        os.chdir(self._oldpath)
 
 
 def _copy_files(file_items, dst_dir):
