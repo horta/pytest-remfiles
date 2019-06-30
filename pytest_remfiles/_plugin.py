@@ -86,10 +86,9 @@ class RemFilesDir:
     def cleanup(self):
         import shutil
 
+        os.chdir(self._oldpath)
         if self._newpath.exists():
             shutil.rmtree(self._newpath)
-
-        os.chdir(self._oldpath)
 
 
 def _copy_files(file_items, dst_dir):
