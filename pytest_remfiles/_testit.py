@@ -12,7 +12,7 @@ def test(verbose=True):
         Exit code: ``0`` for success.
     """
 
-    args = []
+    args = ["--ignore=_plugin.py"]
     if not verbose:
         args += ["--quiet"]
 
