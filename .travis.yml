@@ -1,0 +1,13 @@
+language: python
+python:
+- 3.6
+env:
+- PKG_NAME=pytest_remfiles
+script:
+- bash <(curl -fsSL https://raw.githubusercontent.com/horta/ci/master/travis.sh)
+notifications:
+  email:
+    recipients:
+    - danilo.horta@pm.me
+    on_success: never
+    on_failure: always
