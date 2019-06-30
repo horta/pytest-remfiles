@@ -45,7 +45,7 @@ def pytest_runtest_teardown(item, nextitem):
 
 
 def pytest_configure(config):
-    config.addinivalue_line("markers", "remfiles(urls): mark test to use a remote file")
+    config.addinivalue_line("markers", "remfiles(uris): mark test to use a remote file")
 
 
 @pytest.fixture
