@@ -8,6 +8,7 @@ _resources = {}
 _remfile_dirs = []
 
 
+@pytest.hookimpl
 def pytest_collection_finish(session):
     from pathlib import Path
     import tempfile
@@ -27,7 +28,8 @@ def pytest_collection_finish(session):
                 )
 
 
-def pytest_sessionfinish(*_):
+@pytest.hookimpl
+def pytest_sessionfinish(session, exitstatus):
     import shutil
 
     global _temp_dir
@@ -35,6 +37,7 @@ def pytest_sessionfinish(*_):
         shutil.rmtree(_temp_dir)
 
 
+@pytest.hookimpl
 def pytest_runtest_teardown(item, nextitem):
     global _remfile_dirs
 
@@ -44,6 +47,7 @@ def pytest_runtest_teardown(item, nextitem):
     return nextitem
 
 
+@pytest.hookimpl
 def pytest_configure(config):
     config.addinivalue_line("markers", "remfiles(uris): mark test to use a remote file")
 
