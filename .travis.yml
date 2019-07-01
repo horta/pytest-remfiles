@@ -11,3 +11,11 @@ notifications:
     - danilo.horta@pm.me
     on_success: never
     on_failure: always
+deploy:
+  provider: pypi
+  user: dhorta
+  password:
+    secure: d9gNiKaOsxj2XfrXzThz6Dvn3KXvKUkQCIxOORZu76EMFTy0yCguOJAuvx/VwqlpmTP/r9nUdzHbwE0Zwh/dvLVMSrR8JPLL2VHb+SipIiwbBVrYmMLolOXrK7zBbBEJcbiA/wJHH/vEt4cPxP861khmLl2ZiUaR7Xa5HLZ/8sNinXmpFt0BQsqBKgRd5d/9gXLVWzPaDVniTMfEKoSi8pE1WLKUuLIkxafXmPcWFDzJhqVsb9ccPp0aCBdo5gS318IZ94qDH5eSMi4mwvjP+6GADA0DUUBxzWRSl+UzGjKhLKxqSbXuzp++r9+7NRy3pTrkxAH4ZOjVBDaWLZ2z+IDkcQS/guuVf/YLgMCATdiE3cFwoFWng1wSJWOv+dpm+x8Jbdqhc0dn00SgoXT1XurWmI/Y31M9ViCfAlAcDv8zUsW9FZZ7HZU8Og3/OzN+dnB8V7z9Asa+DXPxM09dt9x5yaiyNb6EswoJCUT1R6ERU8z2Pzl69shNFvJwHNfBJNWqAFgkMLxt+u4z+3Bu2GFOY+IOkzoJVes94uerQ9sFsQc9fc9EnaYxfvKVjxjPRIH2c+uGpuvdaoAy6lCIKQD7+vES8Q6oxyXsKmAFCtvBIxRj+igaX+uQ6UIlWN0W2ETeMjFhCqS1y3bnIG4Bl2/2f6dtsLfcN/hOzX3k2rs=
+  on:
+    tags: true
+    repo: horta/pytest-remfiles
